@@ -1,7 +1,15 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://6651a05420f4f4c4427837c9.mockapi.io/'
-const END_POINTS = 'contacts/'
+function setAuthHeader(token) {
+    axios.defaults.headers.common.Authorization = token
+}
+
+function deleteAuthHeader() {
+     axios.defaults.headers.common.Authorization = '';
+}
+
+const BASE_URL = ''
+const END_POINTS = ''
     const url = `${BASE_URL}${END_POINTS}`
 
 async function getTasks() {
@@ -25,4 +33,17 @@ async function deleteTask(id) {
     return response.data.id
 }
 
-export {getTasks, addTask, deleteTask}
+async function registerFetch(data) {
+
+}
+
+async function logInFetch(data) {
+
+}
+
+async function logOutFetch() {
+    
+    deleteAuthHeader()
+}
+
+export {getTasks, addTask, deleteTask, registerFetch, logInFetch, logOutFetch, setAuthHeader}

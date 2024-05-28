@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { addContact, fetchContacts, deleteContact } from './contactsOps'
+import { addContact, fetchContacts, deleteContact } from './operations'
 
 function errorHandler(state, action) {
     state.error = action.payload
@@ -46,34 +46,7 @@ const contactsSlice = createSlice({
             .addCase(deleteContact.rejected, errorHandler)
     }
 
-    // reducers: {
-    //     addContact: {
-    //         reducer(state, action) {
-    //             state.items.push(action.payload);
-    //         },
-    //         prepare(item) {
-    //             return {
-    //                 payload: {
-    //                     item,
-    //                     id: nanoid(),
-    //                 }
-    //             }
-    //         }
-    //     },
-    //     deleteContact: {
-    //         reducer(state, action) {
-    //             state.items = state.items.filter(item => item.id !== action.payload.id);
-    //         },
-    //         prepare(id) {
-    //             return {
-    //                 payload: {
-    //                     id,
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 })
 
-// export const { addContact, deleteContact } = contactsSlice.actions
+
 export const contactsReduser = contactsSlice.reducer
