@@ -9,7 +9,8 @@ import ContactList from './ContactList/ContactList'
 import AppBar from './AppBar/AppBar'
 import { selectError, selectLoading } from '../redux/contacts/selectors'
 import { fetchContacts } from '../redux/contacts/operations'
-import { selectIsLoggedIn } from '../redux/auth/selectors'
+import {refreshUser} from '../redux/auth/operations'
+import { selectIsLoggedIn, selectIsRefreshing } from '../redux/auth/selectors'
 
 // ------
 
@@ -17,6 +18,7 @@ export default function App() {
     const err = useSelector(selectError)
     const load = useSelector(selectLoading)
     const logIn = useSelector(selectIsLoggedIn)
+    const isRefresh = useSelector(selectIsRefreshing)
     const dispatch = useDispatch()
 
     // useEffect(() => {
@@ -25,7 +27,9 @@ export default function App() {
 
     // console.log(logIn)
 
-    return (
+    // useEffect(() => dispatch(refreshUser()),[dispatch])
+
+    return isRefresh ? <p>Refreshing user...</p> : (
         <div>
             <AppBar></AppBar>
         <div className={css.main}>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { register, login, logout } from '../auth/operations'
+import { register, login, logout, refreshUser } from '../auth/operations'
 
 function errorHandler() {
     console.log('error')
@@ -47,6 +47,17 @@ const authSlice = createSlice({
         state.isLoggedIn = false
       })
       .addCase(logout.rejected, errorHandler)
+      .addCase(refreshUser.pending, (state) => {
+        state.isRefreshing = true
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload
+        state.isLoggedIn = true
+        state.isRefreshing = false
+      })
+      .addCase(refreshUser.rejected, (state) => {
+        state.isRefreshing = false
+      })
 
     }
 })

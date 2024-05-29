@@ -1,8 +1,12 @@
 import { Form, Formik, Field } from 'formik'
+import { useDispatch } from 'react-redux'
+
+import {register} from '../../redux/auth/operations'
 
 import css from './RegisterMenu.module.css'
 
 export default function RegisterMenu() {
+    const dispatch = useDispatch()
 
     const initialValues = {
         name: '',
@@ -15,7 +19,7 @@ export default function RegisterMenu() {
         if (values.password !== values.passwordRepeat) {
             console.log('try again')
         } else {
-            console.log(values)
+            dispatch(register(JSON.stringify({ name: values.name, email: values.email, password: values.password })))
             actions.resetForm()
         }
     }
