@@ -10,6 +10,9 @@ function loadingHandler() {
     console.log('loading')
 }
 
+function resetItems(state) {
+  state.items = []
+}
  
 const authSlice = createSlice({
     name: 'auth',
@@ -45,6 +48,7 @@ const authSlice = createSlice({
         state.user = {name: null, email: null,}
         state.token = null
         state.isLoggedIn = false
+        resetItems(state)
       })
       .addCase(logout.rejected, errorHandler)
       .addCase(refreshUser.pending, (state) => {

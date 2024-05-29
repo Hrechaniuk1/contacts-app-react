@@ -50,11 +50,12 @@ async function logInFetch(data) {
 
 async function logOutFetch() {
     await axios.post('users/logout')
+    // console.log('object')
     deleteAuthHeader()
 }
 
 async function refreshUserFetch() {
-    const response = await axios.post('users/current')
+    const response = await axios.get('users/current')
     return response
 }
 

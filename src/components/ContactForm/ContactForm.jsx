@@ -12,7 +12,7 @@ import {addContact} from '../../redux/contacts/operations'
 export default function ContactForm() {
     const nameId = useId()
     const telId = useId()
-    const itemId = Math.random()
+    const itemId = Math.random() 
     const dispatch = useDispatch()
     const ContactSchema = Yup.object().shape({
         name: Yup.string().matches(/^[A-Z][a-zA-Z]*\s[A-Z][a-zA-Z]*$/, 'Name must contain only English letters: "Alex Copeland"').min(2, '1 letter? For real?').max(15, 'Name is too long').required('Enter the name please'),

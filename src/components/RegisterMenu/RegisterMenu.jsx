@@ -19,7 +19,8 @@ export default function RegisterMenu() {
         if (values.password !== values.passwordRepeat) {
             console.log('try again')
         } else {
-            dispatch(register(JSON.stringify({ name: values.name, email: values.email, password: values.password })))
+            const {passwordRepeat, ...data} = values
+            dispatch(register(data))
             actions.resetForm()
         }
     }

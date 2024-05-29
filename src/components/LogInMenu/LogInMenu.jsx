@@ -12,7 +12,7 @@ export default function LogInMenu() {
     }
     
     function submitHandler(values, actions) {
-           dispatch(login(JSON.stringify({email: values.email, password: values.password})))
+           dispatch(login({email: values.email, password: values.password}))
             actions.resetForm()
     }
 

@@ -19,15 +19,19 @@ export default function App() {
     const load = useSelector(selectLoading)
     const logIn = useSelector(selectIsLoggedIn)
     const isRefresh = useSelector(selectIsRefreshing)
+
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchContacts())
-    // }, [dispatch])
+    useEffect(() => {dispatch(refreshUser())},[dispatch])
+
+    useEffect(() => {
+        if (logIn) {
+            dispatch(fetchContacts())
+        }
+    }, [dispatch, logIn])
 
     // console.log(logIn)
 
-    // useEffect(() => dispatch(refreshUser()),[dispatch])
 
     return isRefresh ? <p>Refreshing user...</p> : (
         <div>

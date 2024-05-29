@@ -5,9 +5,9 @@ import { registerFetch, logInFetch, logOutFetch, setAuthHeader, refreshUserFetch
 export const register = createAsyncThunk('auth/register', async (data, thunkAPI) => {
     try {
         const response = await registerFetch(data)
-        setAuthHeader(response.token)
+        setAuthHeader(response.data.token)
         console.log(response)
-        return response
+        return response.data
     } catch (error) {
         console.log(error.message)
         return thunkAPI.rejectWithValue(error.message)
@@ -17,8 +17,8 @@ export const register = createAsyncThunk('auth/register', async (data, thunkAPI)
 export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
     try {
         const response = await logInFetch(data)
-        setAuthHeader(response.token)
-        return response
+        setAuthHeader(response.data.token)
+        return response.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message)
     }
@@ -39,7 +39,7 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
     try {
         setAuthHeader(persistedToken)
         const response = await refreshUserFetch()
-        return response
+        return response.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message)
     }
