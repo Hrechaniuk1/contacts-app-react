@@ -56,6 +56,7 @@ async function logOutFetch() {
 
 async function refreshUserFetch() {
     const response = await axios.get('users/current')
+    // console.log(response)
     return response
 }
 

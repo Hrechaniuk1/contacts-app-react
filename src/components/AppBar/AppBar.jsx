@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 
-import LogInMenu from '../LogInMenu/LogInMenu'
-import RegisterMenu from '../RegisterMenu/RegisterMenu'
 import css from './AppBar.module.css'
 import { selectUser, selectIsLoggedIn } from '../../redux/auth/selectors'
 import { logout } from "../../redux/auth/operations"
+import Navigation from '../Navigation/Navigation'
 
 
 export default function AppBar() {
@@ -18,10 +18,11 @@ export default function AppBar() {
 
     return (
         <div className={css.container}>
-            {!isLogged ? <LogInMenu></LogInMenu> : <div>
+            <Navigation></Navigation>
+            {!isLogged ? <Link to='/login'>Log In</Link> : <div>
                 <p>Hello {user.name}, {user.email}</p>
             </div>}
-            {!isLogged ? <RegisterMenu></RegisterMenu> : <button onClick={clickHandler} >Log Out</button>}
+            {!isLogged ? <Link to='/register'>Registration</Link> : <button onClick={clickHandler} >Log Out</button>}
     </div>
 )
 }

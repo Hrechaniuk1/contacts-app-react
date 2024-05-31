@@ -2,10 +2,11 @@ import { Form, Formik, Field } from 'formik'
 import { useDispatch } from 'react-redux'
 
 import css from './LogInMenu.module.css'
-import {login} from '../../redux/auth/operations'
+import { login } from '../../redux/auth/operations'
 
 export default function LogInMenu() {
     const dispatch = useDispatch()
+
     const initialValues = {
         email: '',
         password: '',
