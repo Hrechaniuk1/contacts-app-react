@@ -24,15 +24,11 @@ export default function App() {
     useEffect(() => {
         if (logIn) {
             dispatch(fetchContacts())
+                     const id = setTimeout(() => { toast(`Welcome back ${user.name}`, { duration: 3000, style: { backgroundColor: 'aquamarine' } }) }, 1000);
+        return () => {clearTimeout(id)}
         }
     }, [dispatch, logIn, user])
 
-    // useEffect(() => {
-    //     if (logIn) {
-    //         const id = setInterval(() => { toast(`Welcome back ${user.name}`, { duration: 3000, style: { backgroundColor: 'aquamarine' } }) }, 1000);
-    //     return () => {clearInterval(id)}
-    //     }
-    // },)
 
 
     return (
