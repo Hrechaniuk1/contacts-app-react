@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {toast} from 'react-hot-toast' 
 
-import { addContact, fetchContacts, deleteContact } from './operations'
+import { addContact, fetchContacts, deleteContact, updateContact } from './operations'
 
 function errorHandler(state, action) {
     state.error = action.payload
+    toast('Oops, try again', { style: {backgroundColor: 'red'}})
+    
 }
 
 function loadingHandler(state) {
@@ -32,6 +35,7 @@ const contactsSlice = createSlice({
                 state.error = null
                 state.loading = false
                 state.items.push(action.payload)
+                toast('Successfully added', { style: {backgroundColor: 'green'}})
             })
             .addCase(addContact.rejected, errorHandler)
             // 
@@ -39,11 +43,20 @@ const contactsSlice = createSlice({
             .addCase(deleteContact.fulfilled, (state, action) => {
                 state.error = null
                 state.loading = false
-                const index = state.items.find(item => item.id === action.payload)
-                // console.log(action.payload.data.id)
-                state.items.splice(state.items.indexOf(index), 1)
+                const elem = state.items.find(item => item.id === action.payload)
+                state.items.splice(state.items.indexOf(elem), 1)
+                toast('Successfully deleted', { style: {backgroundColor: 'green'}})
             })
             .addCase(deleteContact.rejected, errorHandler)
+            .addCase(updateContact.pending, loadingHandler)
+            .addCase(updateContact.fulfilled, (state, action) => {
+                state.error = null
+                state.loading = false
+                const elem = state.items.find(item => item.id === action.payload)
+                state.items.splice(state.items.indexOf(elem), 1, action.payload)
+                toast('Successfully updated', { style: {backgroundColor: 'green'}})
+            })
+            .addCase(updateContact.rejected, errorHandler)
     }
 
 })

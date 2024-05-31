@@ -8,17 +8,23 @@
     justify-content: space-between;
 }
 
+.btnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+}
+
 .btn {
     background-color: aquamarine;
     width: 70px;
     height: 30px;
-    margin-top: auto;
-    margin-bottom: auto;
     border: 1px solid transparent;
     outline: transparent;
     border-radius: 5px;
     transition: box-shadow 250ms ease-in-out;
 }
+
 
 .btn:hover {
     box-shadow: 2px 2px 10px black;

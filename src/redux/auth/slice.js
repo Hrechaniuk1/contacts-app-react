@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {toast} from 'react-hot-toast'
 
 import { register, login, logout, refreshUser } from '../auth/operations'
 
 function errorHandler() {
-    console.log('error')
+    toast('Oops, try again', { style: {backgroundColor: 'red'}})
 }
 
 function loadingHandler() {
@@ -41,7 +42,9 @@ const authSlice = createSlice({
         state.token = action.payload.token
         state.isLoggedIn = true
       })
-      .addCase(login.rejected, errorHandler)
+      .addCase(login.rejected, () => {
+        toast('Probably there are no user with such email, or the password is wrong', {duration: 3000, style: {backgroundColor: 'red'}})
+      })
       
       .addCase(logout.pending, loadingHandler)
       .addCase(logout.fulfilled, (state) => {

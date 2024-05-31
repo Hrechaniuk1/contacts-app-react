@@ -1,5 +1,6 @@
 import { Form, Formik, Field } from 'formik'
 import { useDispatch } from 'react-redux'
+import { Toaster } from 'react-hot-toast';
 
 import {register} from '../../redux/auth/operations'
 
@@ -27,6 +28,19 @@ export default function RegisterMenu() {
 
     return (
         <div>
+            <Toaster
+            position="top-right"
+            gutter={8}
+            toastOptions={{
+            // Define default options
+            className: '',
+            duration: 1500,
+            style: {
+             background: '#363636',
+             color: '#fff',
+                }
+            }}
+            />
             <Formik
                 initialValues={initialValues}
                 onSubmit={submitHandler}

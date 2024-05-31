@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 
-import { addTask, getTasks, deleteTask } from '../../fetch/fetch'
+import { addTask, getTasks, deleteTask, updateTask } from '../../fetch/fetch'
 
 export const fetchContacts = createAsyncThunk('contacts/fetchAll', 
     async (_, thunkAPI) => {
@@ -32,6 +32,17 @@ export const deleteContact = createAsyncThunk('contacts/deleteContact',
         try {
             const response = await deleteTask(id)
         return response
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message)
+        }
+    } 
+)
+
+export const updateContact = createAsyncThunk('contacts/updateContact', 
+    async (data, thunkAPI) => {
+        try {
+            const response = await updateTask(data)
+        return response.data
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message)
         }

@@ -29,8 +29,8 @@ async function deleteTask(id) {
     return response.data.id
 }
 
-async function updateTask(id, data) {
-    const response = await axios.patch(`/contacts/${id}`, data)
+async function updateTask(data) {
+    const response = await axios.patch(`/contacts/${data.id}`, data.data)
     return response
 }
 
@@ -43,7 +43,7 @@ async function registerFetch(data) {
 }
 
 async function logInFetch(data) {
-    const response = await axios.post('users/login', data)
+        const response = await axios.post('users/login', data)
     return response
     
 }
