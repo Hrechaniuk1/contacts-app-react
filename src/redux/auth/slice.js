@@ -8,7 +8,7 @@ function errorHandler() {
 }
 
 function loadingHandler() {
-    console.log('loading')
+    // toast('Loading...', { style: {backgroundColor: 'teal'}})
 }
 
 function resetItems(state) {

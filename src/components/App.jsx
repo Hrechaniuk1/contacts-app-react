@@ -7,7 +7,8 @@ import PrivateRoute from '../components/PrivatRoute/PrivatRoute'
 import RestrictedRoute from '../components/RestrictedRoute/RestrictedRoute'
 import Layout from '../components/Layout'
 import {refreshUser} from '../redux/auth/operations'
-import {selectIsRefreshing } from '../redux/auth/selectors'
+import { selectIsRefreshing, selectIsLoggedIn } from '../redux/auth/selectors'
+import { logout } from '../redux/auth/operations';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'))
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'))
@@ -20,10 +21,20 @@ const LoginForm = lazy(() => import('../components/LoginForm/LoginForm'))
 
 export default function App() {
     const isRefresh = useSelector(selectIsRefreshing)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
+    const delay = 1000000
 
     const dispatch = useDispatch()
 
-    useEffect(() => {dispatch(refreshUser())},[dispatch])
+    useEffect(() => { dispatch(refreshUser()) }, [dispatch])
+    
+    useEffect(() => {
+        let id
+        if (isLoggedIn) {
+            id = setTimeout(() => dispatch(logout()), delay)
+        }
+        return () => clearTimeout(id)
+    }, [dispatch, isLoggedIn])
 
     return isRefresh ? <p>Refreshing user</p> : <Layout>
         <Routes>
