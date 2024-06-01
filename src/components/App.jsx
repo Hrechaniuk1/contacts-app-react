@@ -11,8 +11,8 @@ import {selectIsRefreshing } from '../redux/auth/selectors'
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'))
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'))
-const RegisterMenu = lazy(() => import('../components/RegisterMenu/RegisterMenu'))
-const LogInMenu = lazy(() => import('../components/LogInMenu/LogInMenu'))    
+const RegistrationForm = lazy(() => import('../components/RegistrationForm/RegistrationForm'))
+const LoginForm = lazy(() => import('../components/LoginForm/LoginForm'))    
 
 
 
@@ -36,13 +36,13 @@ export default function App() {
             <Route path='/login' element={
                 <RestrictedRoute
                 redirectTo='/contacts'
-                component={<LogInMenu></LogInMenu>}
+                component={<LoginForm></LoginForm>}
                 ></RestrictedRoute>
             }></Route>
             <Route path='/register' element={
                 <RestrictedRoute
                 redirectTo='/contacts'
-                component={<RegisterMenu></RegisterMenu>}
+                component={<RegistrationForm></RegistrationForm>}
                 ></RestrictedRoute>
             }></Route>
         </Routes>

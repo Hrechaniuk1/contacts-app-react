@@ -1,33 +1,31 @@
-import { Form, Formik, Field } from 'formik'
+import { Form, Formik, Field, ErrorMessage } from 'formik'
 import { useDispatch } from 'react-redux'
 import { Toaster } from 'react-hot-toast';
+import * as Yup from 'yup';
 
-import {register} from '../../redux/auth/operations'
+import css from './LoginForm.module.css'
+import { login } from '../../redux/auth/operations'
 
-import css from './RegisterMenu.module.css'
-
-export default function RegisterMenu() {
+export default function LogInMenu() {
     const dispatch = useDispatch()
 
     const initialValues = {
-        name: '',
         email: '',
         password: '',
-        passwordRepeat: ''
     }
+    const validationSchema = Yup.object().shape({
+        email: Yup.string().email('Enter a valid email').required('Enter the email please'),
+        password: Yup.string().min(7, 'at least 7 characters').max(15, 'No more than 15 characters').required('enter your password'),
+      })
     
     function submitHandler(values, actions) {
-        if (values.password !== values.passwordRepeat) {
-            console.log('try again')
-        } else {
-            const {passwordRepeat, ...data} = values
-            dispatch(register(data))
+        dispatch(login({ email: values.email, password: values.password }))
             actions.resetForm()
-        }
     }
 
+
     return (
-        <div>
+        <div className={css.component}>
             <Toaster
             position="top-right"
             gutter={8}
@@ -41,24 +39,22 @@ export default function RegisterMenu() {
                 }
             }}
             />
+            <p className={css.description}>Please login with your enail and password</p>
             <Formik
                 initialValues={initialValues}
                 onSubmit={submitHandler}
+                validationSchema={validationSchema}
             >
                 <Form className={css.container}>
-                    <label>Name:
-                        <Field type='text' name='name' required></Field>
-                    </label>
                     <label>Email:
                         <Field type='email' name='email' required></Field>
                     </label>
+                    <ErrorMessage className={css.error} name='email' component='span'></ErrorMessage>
                     <label>Password:
                         <Field type='password' name='password' required></Field>
                     </label>
-                    <label>Repeat your password:
-                        <Field type='password' name='passwordRepeat' required></Field>
-                    </label>
-                    <button type='submit' >Register</button>
+                    <ErrorMessage className={css.error} name='password' component='span'></ErrorMessage>
+                    <button type='submit' >Log In</button>
                 </Form>
             </Formik>
         </div>
